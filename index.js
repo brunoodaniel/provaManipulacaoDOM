@@ -190,3 +190,49 @@ var linhasLocacoes = document.querySelectorAll('table:nth-of-type(2) tbody tr');
 
 
 */
+//QUESTÃO EXTRA      
+
+//PROFESSOR AS OUTRAS QUE EU FIZ EU NÃO MEXI DE ACORDO COM A SUA ORIENTAÇÃO, SÓ FIZ A QUESTÃO EXTRA POIS NÃO TINHA DADO TEMPO.
+
+
+var linhasLocacoes = document.querySelectorAll('table:nth-of-type(2) tbody tr');
+linhasLocacoes.forEach((linha) => {
+    var botaoDevolucao = document.createElement('button');
+    botaoDevolucao.textContent = 'Devolver';
+    botaoDevolucao.onclick = function() {
+        devolverFilme(linha);
+    };
+    linha.appendChild(botaoDevolucao);
+});
+
+function devolverFilme(linhaLocacao) {
+    var filmeDevolvido = linhaLocacao.children[3].innerText; 
+    var dataAtual = new Date().toLocaleDateString(); 
+
+ 
+    linhaLocacao.children[1].innerText = dataAtual;
+
+    
+    linhaLocacao.style.background = "green";
+
+    
+    var linhasFilmes = document.querySelectorAll('table:nth-of-type(1) tbody tr');
+    linhasFilmes.forEach((linhaFilme) => {
+        if (linhaFilme.children[0].innerText === filmeDevolvido) {
+            linhaFilme.style.background = "green"; 
+        }
+    });
+
+    
+    atualizarCartoesQuantitativos();
+}
+
+
+function atualizarCartoesQuantitativos() {
+    var filmesDisponiveis = document.querySelectorAll('table:nth-of-type(1) tbody tr').length;
+    var filmesLocados = document.querySelectorAll('table:nth-of-type(2) tbody tr').length;
+
+    
+    document.getElementById('quantidadeDisponiveis').textContent = filmesDisponiveis;
+    document.getElementById('quantidadeLocados').textContent = filmesLocados;
+}
